@@ -28,6 +28,7 @@ function obtainShowingData(json){
       let runtimeElement = document.getElementById("film-runtime");
       let showtimeElement = document.getElementById("film-showtime");
       let remainingTicketsElement = document.getElementById("film-remaining-tickets");
+      let buyButton = document.getElementById("buy-button")
 
       titleElement.className = showingId;
       titleElement.id = `film-title-${showingId}`
@@ -38,7 +39,17 @@ function obtainShowingData(json){
       titleElement.innerText = showingFilmTitle
       runtimeElement.innerText = showingFilmRuntime + " minutes"
       showtimeElement.innerText = showingShowtime
-      remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
+
+
+
+      if (showingTicketsRemaining === 0){
+        remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
+        buyButton.innerText = "SOLD OUT"
+        buyButton.disabled = true;
+      } else {
+        remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
+      }
+
 
 
     })
@@ -87,7 +98,7 @@ function generateShowingHTML(){
                           </div>
                         </div>
                         <div class="extra content">
-                          <div class="ui blue button">Buy Ticket</div>
+                          <div id="buy-button" class="ui blue button">Buy Ticket</div>
                         </div>
                       </div>`
   showingContainer.innerHTML += (showingHTML); //append not working
