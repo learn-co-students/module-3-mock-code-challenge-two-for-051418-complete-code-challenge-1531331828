@@ -39,7 +39,7 @@ function obtainShowingData(json){
       titleElement.innerText = showingFilmTitle
       runtimeElement.innerText = showingFilmRuntime + " minutes"
       showtimeElement.innerText = showingShowtime
-      //remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
+      remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
 
       // if (showingTicketsRemaining === 0){
       //   remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
@@ -128,5 +128,10 @@ function updateTicketBackend(showingId){
 function refreshFrontend(){
   fetch(`https://evening-plateau-54365.herokuapp.com/theatres/${theatreId}`)
     .then(response=>response.json())
-    .then(json=>obtainShowingData(json));
+    .then(json=>obtainShowingData(json))
+    //or use second param in .then()
+    //.catch(error=>){
+    // });
+
+
 }
