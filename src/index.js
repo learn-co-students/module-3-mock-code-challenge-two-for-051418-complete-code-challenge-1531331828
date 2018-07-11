@@ -10,6 +10,7 @@ fetch(`https://evening-plateau-54365.herokuapp.com/theatres/${theatreId}`)
 
 
 function obtainShowingData(json){
+
     json["showings"].forEach(function(individualShowing){
       let showingId = individualShowing.id;
       let showingFilmObj = individualShowing.film;
@@ -38,18 +39,38 @@ function obtainShowingData(json){
       runtimeElement.innerText = showingFilmRuntime + " minutes"
       showtimeElement.innerText = showingShowtime
       remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
+
+
     })
 }
 
 showingContainer.addEventListener("click", function(e){
+  e.preventDefault();
    if (e.target.className == "ui blue button"){
+
       let currentShowingId = e.target.parentElement.parentElement.getElementsByTagName("DIV")[1].className
       updateTicketBackend(currentShowingId);
+      showingContainer.innerHTML = ""
+      refreshFrontend();
+      // if (e.target.parentElement.parentElement.getElementsByTagName("span")[1].innerText === "0 tickets available"){
+      //   debugger;
+      //   e.target.innerText = "SOLD OUT"
+      //   e.target.disabled = true;
+      // }
+
+      // let currentlyRemaining = document.getElementById("film-remaning-tickets");
+      // let buyButton = document.getElementById("")
+      // debugger;
+      // e.target.innerText = "SOLD OUT"
+      // .then(response=>response.json())
+      // .then(json=>obtainShowingData(json));
       //add to promise chain here to reduce tickets or display sold out.
+      //fetch all and rerun showing data to refresh whole page
    }
 })
 
 function generateShowingHTML(){
+
   let showingHTML = `<div class="card">
                         <div class="content">
                           <div id="film-title" class="header">
@@ -72,8 +93,6 @@ function generateShowingHTML(){
   showingContainer.innerHTML += (showingHTML); //append not working
 }
 
-
-
 function updateTicketBackend(showingId){
 
   let url = "https://evening-plateau-54365.herokuapp.com/tickets"
@@ -94,4 +113,10 @@ function updateTicketBackend(showingId){
      return fetch(url, postConfig)
    }
  updateTicket(url, body);
+}
+
+function refreshFrontend(){
+  fetch(`https://evening-plateau-54365.herokuapp.com/theatres/${theatreId}`)
+    .then(response=>response.json())
+    .then(json=>obtainShowingData(json));
 }
