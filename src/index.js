@@ -28,17 +28,26 @@ function obtainShowingData(json){
       let showtimeElement = document.getElementById("film-showtime");
       let remainingTicketsElement = document.getElementById("film-remaining-tickets");
 
+      titleElement.className = showingId;
       titleElement.id = `film-title-${showingId}`
       runtimeElement.id = `film-runtime-${showingId}`
       showtimeElement.id = `film-showtime-${showingId}`
       remainingTicketsElement.id = `film-remaining-tickets-${showingId}`
 
       titleElement.innerText = showingFilmTitle
-      runtimeElement.innerText = showingFilmRuntime
+      runtimeElement.innerText = showingFilmRuntime + " minutes"
       showtimeElement.innerText = showingShowtime
-      remainingTicketsElement.innerText = showingTicketsRemaining
+      remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
     })
 }
+
+showingContainer.addEventListener("click", function(e){
+   if (e.target.className == "ui blue button"){
+      let currentShowingId = e.target.parentElement.parentElement.getElementsByTagName("DIV")[1].className
+      updateTicketBackend(currentShowingId);
+      //add to promise chain here to reduce tickets or display sold out.
+   }
+})
 
 function generateShowingHTML(){
   let showingHTML = `<div class="card">
@@ -61,4 +70,28 @@ function generateShowingHTML(){
                         </div>
                       </div>`
   showingContainer.innerHTML += (showingHTML); //append not working
+}
+
+
+
+function updateTicketBackend(showingId){
+
+  let url = "https://evening-plateau-54365.herokuapp.com/tickets"
+  let body = {
+    "showing_id": showingId
+  }
+
+  function updateTicket(url,body) {
+     const postConfig = {
+       Accept: "application/json",
+       method: "POST",
+       headers: {
+         'Content-Type': 'application/json',
+         Accepts: 'application/json'
+       },
+       body: JSON.stringify(body)
+     };
+     return fetch(url, postConfig)
+   }
+ updateTicket(url, body);
 }
