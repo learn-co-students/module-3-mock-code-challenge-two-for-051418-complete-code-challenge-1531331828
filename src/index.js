@@ -39,16 +39,15 @@ function obtainShowingData(json){
       titleElement.innerText = showingFilmTitle
       runtimeElement.innerText = showingFilmRuntime + " minutes"
       showtimeElement.innerText = showingShowtime
+      //remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
 
-
-
-      if (showingTicketsRemaining === 0){
-        remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
-        buyButton.innerText = "SOLD OUT"
-        buyButton.disabled = true;
-      } else {
-        remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
-      }
+      // if (showingTicketsRemaining === 0){
+      //   remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
+      //   buyButton.disabled = false;
+      //   buyButton.innerHTML = "SOLD OUT";
+      // } else {
+      //   remainingTicketsElement.innerText = showingTicketsRemaining + " tickets available"
+      // }
 
 
 
@@ -68,15 +67,15 @@ showingContainer.addEventListener("click", function(e){
       //   e.target.innerText = "SOLD OUT"
       //   e.target.disabled = true;
       // }
-
+      //
       // let currentlyRemaining = document.getElementById("film-remaning-tickets");
       // let buyButton = document.getElementById("")
       // debugger;
       // e.target.innerText = "SOLD OUT"
       // .then(response=>response.json())
       // .then(json=>obtainShowingData(json));
-      //add to promise chain here to reduce tickets or display sold out.
-      //fetch all and rerun showing data to refresh whole page
+      // add to promise chain here to reduce tickets or display sold out.
+      // fetch all and rerun showing data to refresh whole page
    }
 })
 
